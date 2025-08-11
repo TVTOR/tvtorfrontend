@@ -1,0 +1,117 @@
+{
+  "Sign_In": "Sign In",
+  "Sign_Up": " Sign Up",
+  "Home": "Home",
+  "Tutor_History": "Tutor History",
+  "Invite_Tutor": "Invite Tutor",
+  "Profile": "Profile",
+  "Change_Password": "Change Password",
+  "Signout": "Signout",
+  "Send": "Send",
+
+
+  "subtitle": " Please sign in with your username \n and password to use your account ",
+  "As_Tutor":"As Tutor",
+  "As_Tutor_Manager": "As Tutor Manager",
+
+
+  "Tutor": "Tutor",
+  "Tutor_Manager": " Tutor Manager",
+
+  "Form": {
+
+
+    "Email_id": "Email id",
+    "Password": "Password",
+
+    "First_Name": "First Name",
+    "Last_Name": "Last Name",
+    "Surname":"Surname",
+    "Choose_Location": "Choose Loaction",
+    "Confirm_Password": " Confirm Password",
+    "Mobile_Number": " Mobile Number",
+    "Code": "Code",
+    "Enter_your_given_code": "Enter your given code",
+    "Old_Password": "Old Password",
+    "New_Password": "New Password",
+    "Description": "Description",
+    "Add_Comment": "Add Comment",
+    "Mob_No": "Mob No.",
+    "Firstname": "Firstname",
+    "Lastname": "Lastname",
+    "Name": "Name",
+    "Location": "Location",
+    "Please_Enter_employee_Id": "Please Enter employee Id",
+    "Required_Password": "Required Password",
+    "Success": "Success",
+    "Please_Enter_First_Name": " Please Enter First Name",
+    "Please_enter_Last_name": "Please enter Last name",
+    "Please_Enter_Email_Id": "Please Enter Email Id",
+    "Wrong_Number": "Wrong Number",
+    "Empty": "Empty",
+    "Not_Match": "Not Match",
+    "Please_enter_valid_code": "Please enter valid code",
+    "Code_is_required": "Code is required",
+    "Email": "Email",
+    "Please_enter_mobile_number": "Please enter mobile number",
+    "Required": "Required",
+    "Password_should_not_same": "Password should not same",
+    "old": "old",
+    "Enter_Valid_Email": "Enter_Valid_Email"
+
+  },
+
+
+  "3hr": "3hr",
+  "6hr": "6hr",
+  "12hr": " 12hr",
+  "24hr": " 24hr",
+
+  "Received_new_request_for": "Received new request for",
+  "at": "at",
+  "Time": "Time",
+  "Subjects": "Subjects",
+  "Choose_Your_Subjects": "Choose Your Subjects",
+  "Forgot_Password": "Forgot Password",
+  "SIGN_IN": "SIGN IN",
+  "SIGN_UP": "SIGN UP",
+  "Choose_Location": "Choose Loaction",
+  "Don't_have_an_account": " Don't have an account?",
+
+  "Edit": "Edit",
+  "Save": "Save",
+  "Profile_Update_Successfully": "Profile Update Successfully",
+  "Select_Location": "Select Location",
+  "No_Tutor_associated_yet": "No Tutor associated yet",
+  "Alert": "Alert ",
+  "No": "No",
+  "Are_you_sure_want_to_delete": "Are you sure want to delete?",
+  "Invite": "Invite",
+  "No_request_available": "No request available",
+  "Yes": " Yes",
+  "Registered_Successfully": "Registered Successfully",
+  "Change_Password1": "Change Password?",
+  "Example_share": "Example share",
+  "Enter_your_given_code": "Enter your given code",
+  "Forget_Password": "Forget Password?",
+  "Create_New_Code": "Create New Code",
+  "Choose_Your_Self": "Choose Your Self",
+  "Availability_For_The_Next": "Availability For The Next",
+  "Select_Availability_hours": "Select Availability hours",
+  "Please_assign_a_Tutor": "Please assign a Tutor",
+  "Choose_More_Subjects": "Choose More Subjects",
+  "Please_select_atleast_one_location": "Please_select_atleast_one_location",
+  "Success": "Success",
+  "Comment": "Comment",
+  "Assign_tutor": "Assign_tutor"
+
+
+}
+
+
+
+
+
+
+
+
