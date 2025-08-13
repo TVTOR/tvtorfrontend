@@ -252,7 +252,7 @@ class _CommonDrawerState extends State<CommonDrawer>
                 String id =
                     await SharedPrefHelper().getWithDefault("id", "null");
                 var res = await NetworkUtil()
-                    .deleteApi("user/logout/$id", token: token);
+                      .deleteApi("user/logout/$id", token: token);
                 LogoutResponse response = LogoutResponse.fromJson(res);
                 if (response.success == true) {
                   CommonUtils.dismissProgressDialog(context);
