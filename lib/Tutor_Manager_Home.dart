@@ -55,10 +55,10 @@ class _MyHomePageState extends State<TutorManagerHome> with TutorsContract {
   }
 
   @override
-  Future<void> initState() async {
+  void initState()  {
     super.initState();
     tPresenter = new TutorsPresenter(this);
-    pushNotificationsManager = PushNotificationsManager(context);
+  pushNotificationsManager = PushNotificationsManager(context);
     pushNotificationsManager.init();
     getTutors();
   }
