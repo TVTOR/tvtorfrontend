@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
-import 'package:dio_http_cache/dio_http_cache.dart';
+import 'package:dio_http_cache_lts/dio_http_cache_lts.dart';
 import 'package:flutter/material.dart';
 
 class NetworkUtil {
