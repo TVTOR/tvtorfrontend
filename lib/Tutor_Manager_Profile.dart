@@ -49,7 +49,8 @@ class _TutorManagerProfileState extends State<TutorManagerProfile> {
   StreamController<List<DataItem>> _bbolController =
       StreamController.broadcast();
   StreamController _Image = StreamController();
-  String dropdownValue = '3hr';
+  final dropDownMenuItems = ['3hr', '6hr', '12hr', '24hr'];
+  late String dropdownValue;
   bool edit = true;
 
   late List<DataItem> locationList;
@@ -60,6 +61,7 @@ class _TutorManagerProfileState extends State<TutorManagerProfile> {
   void initState() {
     // TODO: implement initState
     super.initState();
+      dropdownValue = dropDownMenuItems[0];
     locationList = [];
     getProfle();
   }
@@ -231,42 +233,24 @@ class _TutorManagerProfileState extends State<TutorManagerProfile> {
                                             width: 450,
                                             child: DropdownButton<String>(
                                               isExpanded: true,
-                                              value: dropdownValue,
-                                              underline: Container(
-                                                height: 1.0,
-                                              ),
-                                              onChanged: edit
-                                                  ? null
-                                                  : (String? newValue) {
-                                                      if (newValue == null)
-                                                        return;
-                                                      setState(() {
-                                                        dropdownValue =
-                                                            newValue;
-                                                      });
-                                                    },
-                                              items: <String>[
-                                                '3hr',
-                                                '6hr',
-                                                '12hr',
-                                                '24hr'
-                                              ].map<DropdownMenuItem<String>>(
-                                                  (String value) {
+                                              value: dropDownMenuItems.contains(dropdownValue) ? dropdownValue : null,  // initialized with '3hr', which is valid
+                                              underline: Container(height: 1.0),
+                                              onChanged: edit ? null : (String? newValue) {
+                                                if (newValue == null) return;
+                                                setState(() {
+                                                  dropdownValue = newValue;
+                                                });
+                                              },
+                                              items: dropDownMenuItems
+                                                  .map<DropdownMenuItem<String>>((String value) {
                                                 return DropdownMenuItem<String>(
                                                   value: value,
-                                                  child: Text(value,
-                                                      style: TextStyle(
-                                                          color: Colors.grey)),
+                                                  child: Text(value, style: TextStyle(color: Colors.grey)),
                                                 );
                                               }).toList(),
                                               hint: Text(
-                                                dropdownValue != null &&
-                                                        dropdownValue.isNotEmpty
-                                                    ? dropdownValue
-                                                    : tr(
-                                                        "Select_Availability_hours"),
-                                                style: TextStyle(
-                                                    color: Colors.grey),
+                                                dropdownValue.isNotEmpty ? dropdownValue : tr("Select_Availability_hours"),
+                                                style: TextStyle(color: Colors.grey),
                                               ),
                                             ),
                                             decoration: ShapeDecoration(

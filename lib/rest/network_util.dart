@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
-import 'package:dio_http_cache/dio_http_cache.dart';
+import 'package:dio_http_cache_lts/dio_http_cache_lts.dart';
 import 'package:flutter/material.dart';
 
 class NetworkUtil {
@@ -25,7 +25,8 @@ class NetworkUtil {
     _dio.interceptors.add(DioCacheManager(config).interceptor);
   }
 
-  static const String BASE_URL = "https://tutorbackend.herokuapp.com/api/v1/";
+  //static const String BASE_URL = "https://tutorbackend.herokuapp.com/api/v1/";
+  static const String BASE_URL = "https://6848f3389d8c.ngrok-free.app/api/v1/";
 
   late final Dio _dio;
 

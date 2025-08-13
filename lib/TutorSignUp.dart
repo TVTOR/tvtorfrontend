@@ -79,10 +79,10 @@ class _MyHomePageState extends State<TutorSignUp> with RegisterContract {
   Future<String> getLocationData() async {
     var res = await http
           .get(Uri.parse(url), headers: {"Accept": "application/json"});
+    debugPrint("Response status: ${res}");
 //    var resBody = json.decode(res.body);
-
     resBody = LocationResponse.fromJson(jsonDecode(res.body));
-
+    debugPrint("resobody: ${resBody.toString()}");
     setState(() {
 //      dataList = resBody.data.map((Data value) =>
 //          DropdownMenuItem<String>(child: Text(value.location))

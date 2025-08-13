@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertvtor/Invite_Tutor.dart';
 import 'package:fluttertvtor/Manager_Change_Password.dart';
@@ -11,7 +10,6 @@ import 'package:fluttertvtor/Tutor_Assign.dart';
 import 'package:fluttertvtor/Tutor_Manager_Home.dart';
 import 'package:fluttertvtor/Tutor_Manager_Profile.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:fluttertvtor/Tutor_Profile.dart';
 import 'package:fluttertvtor/hexColor.dart';
 import 'package:fluttertvtor/models/imagemodal.dart';
 import 'package:fluttertvtor/models/requests/notificationmodel.dart';
@@ -254,7 +252,7 @@ class _CommonDrawerState extends State<CommonDrawer>
                 String id =
                     await SharedPrefHelper().getWithDefault("id", "null");
                 var res = await NetworkUtil()
-                    .deleteApi("user/logout/$id", token: token);
+                      .deleteApi("user/logout/$id", token: token);
                 LogoutResponse response = LogoutResponse.fromJson(res);
                 if (response.success == true) {
                   CommonUtils.dismissProgressDialog(context);

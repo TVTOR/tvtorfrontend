@@ -14,7 +14,7 @@ description: A new Flutter application.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.17.0 <4.0.0"
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -25,21 +25,21 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
-  dio: ^4.0.6
-  share_plus: ^11.0.0
-  dio_http_cache: ^0.3.0
+  dio: ^5.9.0
+  dio_http_cache_lts: ^0.4.2
+  share_plus: ^11.1.0
   shared_preferences: ^2.5.3
-  http:
-
+  http: ^1.5.0
   fluttertoast: ^8.2.12
-  image_picker:
-  path:
-  intl:
+  image_picker: ^1.1.2
+  path: ^1.9.1
+  intl: ^0.20.2
   flutter_staggered_grid_view: ^0.7.0
   firebase_messaging: ^16.0.0
   device_info_plus: ^11.5.0
   flutter_local_notifications: ^19.4.0
   easy_localization: ^3.0.8
+  firebase_core: ^4.0.0
 
 
 dev_dependencies:
