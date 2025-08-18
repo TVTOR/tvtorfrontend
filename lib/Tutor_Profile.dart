@@ -588,7 +588,7 @@ class _MyHomePageState extends State<Tutor_Profile> {
       mobileController.text = userResponse.data?.mobileNumber.toString() ?? "";
       descriptionController.text = userResponse.data?.description ?? "";
       _controller.sink.add(userResponse);
-      _subjectListController.sink.add(userResponse.data?.subjectData as List<String>? ?? []);
+      _subjectListController.sink.add(userResponse.data?.subjectData  ?? []);
 
     }
     return response;

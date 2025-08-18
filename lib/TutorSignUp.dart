@@ -77,11 +77,10 @@ class _MyHomePageState extends State<TutorSignUp> with RegisterContract {
 //  List<Data> data = <Data>[]; //edited line
 
   Future<String> getLocationData() async {
-    var res = await http
-          .get(Uri.parse(url), headers: {"Accept": "application/json"});
+    var res = await NetworkUtil().get(NetworkUtil.BASE_URL + "location");
     debugPrint("Response status: ${res}");
 //    var resBody = json.decode(res.body);
-    resBody = LocationResponse.fromJson(jsonDecode(res.body));
+    resBody = LocationResponse.fromJson(res);
     debugPrint("resobody: ${resBody.toString()}");
     setState(() {
 //      dataList = resBody.data.map((Data value) =>

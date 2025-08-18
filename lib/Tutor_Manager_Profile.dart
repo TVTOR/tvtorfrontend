@@ -16,7 +16,6 @@ import 'package:fluttertvtor/models/imagemodal.dart';
 import 'package:fluttertvtor/models/requests/userrequest.dart';
 import 'package:fluttertvtor/models/response/locationresponse.dart';
 import 'package:fluttertvtor/models/response/logoutresponse.dart';
-import 'package:fluttertvtor/models/response/update_profile_response.dart';
 import 'package:fluttertvtor/models/response/userresponse.dart';
 import 'package:fluttertvtor/rest/network_util.dart';
 import 'package:fluttertvtor/utils/CommonUtils.dart';
@@ -38,7 +37,7 @@ class TutorManagerProfile extends StatefulWidget {
 
 class _TutorManagerProfileState extends State<TutorManagerProfile> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  late XFile? image = null;
+    XFile? image = null;
   XFile? _image;
   late UserResponse userResponse;
   TextEditingController userFirstNameController = new TextEditingController();
