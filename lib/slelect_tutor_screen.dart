@@ -310,7 +310,7 @@ class SelectTutorScreenState extends State<SelectTutorScreen>
                   child: ListView(
                     shrinkWrap: true,
                     children: (value.subjectData ?? []).map((e) {
-                      final colorCode = e.colorcode ?? '#000000';  // fallback color if null
+                      final colorCode = (e.colorcode != null && e.colorcode!.isNotEmpty) ? e.colorcode! : '#000000'; // fallback color if null
                       final subjectText = e.subject ?? '';         // fallback text if null
 
                       return Card(
