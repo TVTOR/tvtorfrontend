@@ -145,7 +145,7 @@ class PushNotificationsManager {
     _initialized = true;
   }
 
-  Future<void> _sendDeviceInfoAndToken() async {
+  Future<void>  _sendDeviceInfoAndToken() async {
     try {
       String token =
           await SharedPrefHelper().getWithDefault("firebasetoken", "null");
