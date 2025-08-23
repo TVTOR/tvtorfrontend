@@ -63,7 +63,7 @@ class _MyHomePageState extends State<Tutor_Assign> with TutorHistoryContract {
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (buildContext) => SelectTutorScreen(
                                       nId: snapshot.data?[index].id ?? "",
-                                    )));
+                                    ),),);
                           },
                           child: Card(
                             shape: RoundedRectangleBorder(

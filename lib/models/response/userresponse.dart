@@ -1,5 +1,4 @@
 import 'package:fluttertvtor/models/response/locationresponse.dart';
-import 'package:fluttertvtor/models/response/update_profile_response.dart';
 
 class UserResponse {
   bool? success;
@@ -173,78 +172,5 @@ class Data {
   }
 }
 
-class LocationData {
-  final String? id;
-  final String? location;
 
-  LocationData({this.id, this.location});
 
-  factory LocationData.fromJson(Map<String, dynamic> json) {
-    return LocationData(
-      id: json['_id'],
-      location: json['location'],
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      '_id': id,
-      'location': location,
-    };
-  }
-}
-
-extension UserResponseMapper on UserResponse {
-  static UserResponse fromUpdateProfileResponse(
-      UpdateProfileResponse updateProfile) {
-    final updData = updateProfile.data;
-    if (updData == null) {
-      return UserResponse(
-        success: updateProfile.success,
-        data: null,
-        message: updateProfile.message,
-        statusCode: updateProfile.statusCode,
-      );
-    }
-    List<String>? mappedLocationData;
-    if (updData.locationData != null) {
-      mappedLocationData = updData.locationData!
-          .map((locData) => locData.location ?? '')
-          .where((loc) => loc.isNotEmpty)
-          .toList();
-    }
-
-    final userData = Data(
-      location: updData.location,
-      subjects: updData.subjects,
-      status: updData.status,
-      isDeleted: updData.isDeleted,
-      subjectId: updData.subjectId,
-      subjectData: updData.subjectData,
-      locationData: mappedLocationData,
-      locationList: updData.locationList,
-      managerId: updData.managerId,
-      userType: updData.userType,
-      sId: updData.sId,
-      name: updData.name,
-      surname: updData.surname,
-      imageUrl: updData.imageUrl,
-      email: updData.email,
-      password: updData.password,
-      description: updData.description,
-      availability: updData.availability,
-      mobileNumber: updData.mobileNumber,
-      code: updData.code,
-      createdAt: updData.createdAt,
-      updatedAt: updData.updatedAt,
-      iV: updData.iV,
-    );
-
-    return UserResponse(
-      success: updateProfile.success,
-      data: userData,
-      message: updateProfile.message,
-      statusCode: updateProfile.statusCode,
-    );
-  }
-}

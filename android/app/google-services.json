@@ -1,37 +1,26 @@
 {
   "project_info": {
-    "project_number": "59234154407",
-    "firebase_url": "https://tvtor-7e3c4.firebaseio.com",
-    "project_id": "tvtor-7e3c4",
-    "storage_bucket": "tvtor-7e3c4.appspot.com"
+    "project_number": "1063039706484",
+    "project_id": "tvtor-a9803",
+    "storage_bucket": "tvtor-a9803.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:59234154407:android:afee3c137ef5fd8e3ce882",
+        "mobilesdk_app_id": "1:1063039706484:android:b136fe7e0838637b117821",
         "android_client_info": {
           "package_name": "com.app.tvtor"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "59234154407-u61qdh15s9jjfigu46p662snoa0vg2uq.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyC4KQxfLCq8BQdA4n1Ih1oPthzhgJvhy9M"
+          "current_key": "AIzaSyDrum0IAMoODR5ZX4QwAx0NhTCFXtKeTNs"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "59234154407-u61qdh15s9jjfigu46p662snoa0vg2uq.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

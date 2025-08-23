@@ -190,9 +190,7 @@ class _MyHomePageState extends State<InviteTutor> {
     if (response.success == true) {
       value = response.data?.code.toString() ?? "";
       _controller.add(value);
-      setState(() {
-
-      });
+      setState(() {});
     }
   }
 

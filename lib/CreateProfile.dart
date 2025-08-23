@@ -39,7 +39,7 @@ class _CreateTutorProfileState extends State<CreateTutorProfile> {
 
   List<SubjectItem> dataList = <SubjectItem>[];
   final StreamController<List<SubjectItem>> streamController =
-  StreamController.broadcast();
+      StreamController.broadcast();
 
   @override
   void initState() {
@@ -149,7 +149,8 @@ class _CreateTutorProfileState extends State<CreateTutorProfile> {
         return GestureDetector(
           onTap: () {
             setState(() {
-              final selectedCount = dataList.where((e) => e.isSelected == true).length;
+              final selectedCount =
+                  dataList.where((e) => e.isSelected == true).length;
 
               // Allow toggle ON only if less than 3 are already selected
               if (value.isSelected == true) {
@@ -201,62 +202,54 @@ class _CreateTutorProfileState extends State<CreateTutorProfile> {
   }
 
   Future<void> saveSubjects() async {
-    List<SubjectItem> selectedItems =
+    List<SubjectItem> selectedList =
     dataList.where((element) => element.isSelected == true).toList();
 
-    if (selectedItems.isEmpty) {
+    List<String> list = <String>[];
+
+    selectedList.forEach((element) {
+      list.add(element.sId ?? '');
+    });
+
+    request.subjects = list.join(",");
+
+    if (list.length == 0) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(tr("Please_select_at_least_one_subject")),
           duration: const Duration(milliseconds: 1000),
+          elevation: 2,
           behavior: SnackBarBehavior.floating,
-        ),
-      );
-      return;
-    }
-
-    List<String> list = selectedItems.map((e) => e.sId ?? '').toList();
-    request.subjects = list.join(",");
-
-    print(jsonEncode(request));
-
-    CommonUtils.fullScreenProgress(context: context);
-
-    FormData formData =
-    FormData.fromMap(jsonDecode(jsonEncode(request)));
-
-    String token = await SharedPrefHelper()
-        .getWithDefault(SharedPrefHelper.token, "null");
-    String id =
-    await SharedPrefHelper().getWithDefault("id", "null");
-
-    var res = await NetworkUtil().putApi(
-      NetworkUtil.BASE_URL + "user/$id",
-      token: token,
-      isFormData: true,
-      body: formData,
-    );
-
-    UserResponse response = UserResponse.fromJson(res);
-    CommonUtils.dismissProgressDialog(context);
-
-    if (response.statusCode == 200) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(tr("Profile_Update_Successfully")),
-          duration: const Duration(milliseconds: 500),
-          behavior: SnackBarBehavior.floating,
-        ),
-      );
-
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (BuildContext context) => Tutor_Profile(),
         ),
       );
     } else {
-      CommonUtils.showToast(msg: response.message ?? '');
+      print(jsonEncode(request));
+
+      CommonUtils.fullScreenProgress(context: context);
+
+      FormData formData = new FormData.fromMap(jsonDecode(jsonEncode(request)));
+      String token = await SharedPrefHelper()
+          .getWithDefault(SharedPrefHelper.token, "null");
+      String id = await SharedPrefHelper().getWithDefault("id", "null");
+      var res = await NetworkUtil().putApi(NetworkUtil.BASE_URL + "user/$id",
+          token: token, isFormData: true, body: formData);
+      UserResponse response = UserResponse.fromJson(res);
+      if (response.statusCode == 200) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(tr("Profile_Update_Successfully")),
+          duration: Duration(milliseconds: 500),
+          behavior: SnackBarBehavior.floating,
+        ));
+
+        CommonUtils.dismissProgressDialog(context);
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) => Tutor_Profile()));
+      } else {
+        CommonUtils.showToast(msg: response.message ?? '');
+        CommonUtils.dismissProgressDialog(context);
+      }
     }
   }
 }
