@@ -19,6 +19,7 @@ import 'package:fluttertvtor/rest/network_util.dart';
 import 'package:fluttertvtor/utils/CommonUtils.dart';
 import 'package:fluttertvtor/utils/SharedPrefHelper.dart';
 import 'package:fluttertvtor/utils/custom_views/CommonStrings.dart';
+import 'package:fluttertvtor/utils/pushnotification.dart';
 
 //class SignIn extends StatelessWidget {
 //  // This widget is the root of your application.
@@ -338,7 +339,7 @@ class _MyHomePageState extends State<SignIn> with LoginContract {
                 .save(SharedPrefHelper.token, response.data?.token);
             bool id = await SharedPrefHelper().save("id", response.data?.sId?? "");
             bool first = await SharedPrefHelper().save("first", true);
-            print("token is $token \n id is $id");
+            print("token is $token \n id is ${response.data?.sId.toString()}");
             response.data?.userType == "tutormanager"
                 ? isTutor = false
                 : isTutor = true;
@@ -349,6 +350,8 @@ class _MyHomePageState extends State<SignIn> with LoginContract {
                   MaterialPageRoute(builder: (context) => Tutor_Profile()),
                   ModalRoute.withName("/"));
             } else if (isTutor == false) {
+              final pushManager = PushNotificationsManager(context);
+              pushManager.refreshAndSendFcmToken();
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (context) => CommonDrawer()),
@@ -391,13 +394,12 @@ class _MyHomePageState extends State<SignIn> with LoginContract {
     rr.Data lData = rr.Data.fromJson(jsonDecode(json));
 
     if (userEmailController.text.isNotEmpty) {
-      CommonUtils.isNetworkAvailable().then((bool connected) {
+      CommonUtils.isNetworkAvailable().then((bool connected)  async{
         if (connected) {
           LoginRequest lRequest = new LoginRequest();
           lRequest.email = lData.email;
           lRequest.password = lData.password;
-
-          print("token is $token");
+          print("token has $token");
           if (isTutor == true) {
             Navigator.pushAndRemoveUntil(
                 context,

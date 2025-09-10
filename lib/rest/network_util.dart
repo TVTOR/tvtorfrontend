@@ -26,7 +26,8 @@ class NetworkUtil {
   }
 
   //static const String BASE_URL = "https://tutorbackend.herokuapp.com/api/v1/";
-  static const String BASE_URL = "https://tvtorbackend.onrender.com/api/v1/";
+  //static const String BASE_URL = "https://tvtorbackend.onrender.com/api/v1/";
+  static const String BASE_URL = "https://dae3e280325d.ngrok-free.app/api/v1/";
 
   late final Dio _dio;
 
