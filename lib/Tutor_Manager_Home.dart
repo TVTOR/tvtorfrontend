@@ -47,8 +47,6 @@ class _MyHomePageState extends State<TutorManagerHome> with TutorsContract {
     tPresenter = TutorsPresenter(this);
     pushNotificationsManager = PushNotificationsManager(context);
     pushNotificationsManager.init();
-    // NotificationService().initNotification();
-     //CloudMessagingUtil.listen();
     getTutors();
   }
 

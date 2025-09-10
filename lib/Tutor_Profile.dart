@@ -23,19 +23,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'hexColor.dart';
-//import 'package:fluttertvtor/tabs/Tutor_Assign.dart';
 
-//class Tutor_Profile extends StatelessWidget {
-//  // This widget is the root of your application.
-//  @override
-//  Widget build(BuildContext context) {
-//    return MaterialApp(
-//
-//      home: Tutor_Profile_Page(),
-//    );
-//  }
-//
-//}
 class Tutor_Profile extends StatefulWidget {
   Tutor_Profile({Key? key, this.title, this.isTutor}) : super(key: key);
   final bool? isTutor;
@@ -67,15 +55,49 @@ class _MyHomePageState extends State<Tutor_Profile> {
   @override
   void initState() {
     super.initState();
-    getProfle();
+    getProfile();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
-    _subjectListController?.close();
-    _controller?.close();
+    _subjectListController.close();
+    _controller.close();
+  }
+
+  Future<UserResponse> getProfile() async {
+    String token =
+        await SharedPrefHelper().getWithDefault(SharedPrefHelper.token, "null");
+    String id = await SharedPrefHelper().getWithDefault("id", "null");
+    var res = await NetworkUtil()
+        .get(NetworkUtil.BASE_URL + "user/$id", token: token);
+    UserResponse response = UserResponse.fromJson(res);
+    if (response.success == true) {
+      userResponse = response;
+      emailController.text = userResponse.data?.email ?? "";
+      firstNameController.text = userResponse.data?.name ?? "";
+      lastNameController.text = userResponse.data?.surname ?? "";
+      mobileController.text = userResponse.data?.mobileNumber.toString() ?? "";
+      descriptionController.text = userResponse.data?.description ?? "";
+      _controller.sink.add(userResponse);
+      _subjectListController.sink.add(userResponse.data?.subjectData ?? []);
+    }
+    return response;
+  }
+
+  bool validateEmail(String value) {
+    String pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regex = new RegExp(pattern);
+    if (!regex.hasMatch(value))
+      return false;
+    else
+      return true;
+  }
+
+  Future<void> onRefresh() async {
+    await getProfile();
+    return;
   }
 
   @override
@@ -102,45 +124,26 @@ class _MyHomePageState extends State<Tutor_Profile> {
                           child: Center(
                               child: new Column(children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.only(top: 30),
+                      padding: EdgeInsets.only(top: 50),
                     ),
                     Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          Padding(
-                            padding: EdgeInsets.only(
-                              left: 150,
-                            ),
-                            child: Text(
-                              tr("Profile"),
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.indigo,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                              left: 50,
-                            ),
+                          Expanded(
                             child: GestureDetector(
                               child: new Row(
                                 children: <Widget>[
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 10.0),
-                                    child: (IconButton(
-                                      onPressed: () {},
-                                      icon: new Image.asset(
-                                        'assets/signout.png',
-                                      ),
-                                      iconSize: 10,
-                                    )),
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: new Image.asset(
+                                      'assets/signout.png',
+                                    ),
                                   ),
                                   Text(
                                     tr("Signout"),
                                     style: TextStyle(
-                                        fontSize: 15,
+                                        fontSize: 18,
                                         color: Colors.red,
                                         fontWeight: FontWeight.bold),
                                   ).tr(),
@@ -171,7 +174,16 @@ class _MyHomePageState extends State<Tutor_Profile> {
                                 }
                               },
                             ),
-                          )
+                          ),
+                          Expanded(
+                            child: Text(
+                              tr("Profile"),
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.indigo,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
                         ]),
                     Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -282,6 +294,90 @@ class _MyHomePageState extends State<Tutor_Profile> {
                                       _refreshIndicatorKey.currentState!.show();
                                     }
                                   })),
+                          Container(
+                            padding: EdgeInsets.fromLTRB(20, 0, 20, 16),
+                            height: 70,
+                            width: 500,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.lightBlue,
+                                  textStyle: TextStyle(
+                                    color: Colors.white,
+                                  )),
+                              child: Text(
+                                edit ? tr('Modifica') : tr('Salva'),
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white),
+                              ),
+                              onPressed: edit
+                                  ? () {
+                                      print(edit);
+                                      setState(() {
+                                        edit = !edit;
+                                        color = Colors.black;
+                                      });
+                                      print(edit);
+                                    }
+                                  : () async {
+                                      CommonUtils.fullScreenProgress(
+                                          context: context);
+                                      UserRequest request = UserRequest(
+                                          name: firstNameController.text,
+                                          email: emailController.text,
+                                          surname: lastNameController.text,
+                                          description:
+                                              descriptionController.text,
+                                          mobileNumber: mobileController.text);
+                                      FormData formData = new FormData.fromMap(
+                                          jsonDecode(jsonEncode(request)));
+                                      if (image != null) {
+                                        formData.files.add(MapEntry(
+                                          "image",
+                                          await MultipartFile.fromFile(
+                                              image?.path ?? "",
+                                              filename:
+                                                  basename(image?.path ?? "")),
+                                        ));
+                                      }
+                                      //  CommonUtils.fullScreenProgress(context: context);
+                                      String token = await SharedPrefHelper()
+                                          .getWithDefault(
+                                              SharedPrefHelper.token, "null");
+                                      String id = await SharedPrefHelper()
+                                          .getWithDefault("id", "null");
+                                      var res = await NetworkUtil().putApi(
+                                          NetworkUtil.BASE_URL + "user/$id",
+                                          token: token,
+                                          isFormData: true,
+                                          body: formData);
+                                      UserResponse response =
+                                          UserResponse.fromJson(res);
+                                      if (response.success == true) {
+                                        ScaffoldMessenger.of(
+                                                _scaffoldKey.currentContext!)
+                                            .showSnackBar(SnackBar(
+                                          content: Text(tr(
+                                              "Profile_Update_Successfully")),
+                                          duration: Duration(milliseconds: 500),
+                                        ));
+
+                                        print("success");
+                                        CommonUtils.dismissProgressDialog(
+                                            context);
+                                        userResponse = response;
+                                        setState(() {
+                                          edit = true;
+                                          color = Colors.grey;
+                                        });
+                                        // return userResponse;
+                                      } else {
+                                        CommonUtils.dismissProgressDialog(
+                                            context);
+                                      }
+                                    },
+                            ),
+                          ),
                         ]),
                     Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -430,128 +526,50 @@ class _MyHomePageState extends State<Tutor_Profile> {
                                         fontWeight: FontWeight.bold,
                                         fontSize: 20)))
                           ])),
-                          subjectGridView(userResponse.data?.subjectData  ?? []),
+                          subjectGridView(userResponse.data?.subjectData ?? []),
                           Padding(
-                              padding: EdgeInsets.only(top: 10, left: 150),
-                              child: GestureDetector(
-                                  child: Text(tr("Choose_More_Subjects"),
-                                      textAlign: TextAlign.right,
-                                      style: TextStyle(
-                                          decoration: TextDecoration.underline,
-                                          color: Color(0xFF122345),
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold)),
-                                  onTap: () async {
-                                    UserRequest request = UserRequest(
-                                        name: firstNameController.text,
-                                        email: emailController.text,
-                                        surname: lastNameController.text,
-                                        description: descriptionController.text,
-                                        mobileNumber: mobileController.text);
+                            padding: const EdgeInsets.only(right: 24, top: 10),
+                            child: Align(
+                                alignment: Alignment.centerRight,
+                                child: GestureDetector(
+                                    child: Text(tr("Aggiungi Nuove Materie"),
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(
+                                            decoration:
+                                                TextDecoration.underline,
+                                            color: Color(0xFF122345),
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold)),
+                                    onTap: () async {
+                                      UserRequest request = UserRequest(
+                                          name: firstNameController.text,
+                                          email: emailController.text,
+                                          surname: lastNameController.text,
+                                          description:
+                                              descriptionController.text,
+                                          mobileNumber: mobileController.text);
 
-                                    UserResponse user = snapshot.data as UserResponse;
+                                      UserResponse user =
+                                          snapshot.data as UserResponse;
 
-                                    String res = await Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                            builder: (buildContext) {
-                                      return CreateTutorProfile(
-                                          title: request,
-                                          selectedList:
-                                              user.data?.subjects ?? []);
-                                    }));
+                                      String res = await Navigator.of(context)
+                                          .push(MaterialPageRoute(
+                                              builder: (buildContext) {
+                                        return CreateTutorProfile(
+                                            title: request,
+                                            selectedList:
+                                                user.data?.subjects ?? []);
+                                      }));
 
-                                    if (res == "Update") {
-                                      _refreshIndicatorKey.currentState!.show();
-                                    }
-                                  })),
+                                      if (res == "Update") {
+                                        _refreshIndicatorKey.currentState!
+                                            .show();
+                                      }
+                                    })),
+                          ),
                           Padding(
                             padding: EdgeInsets.only(top: 30),
                           ),
-                          Container(
-                              padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                              height: 60,
-                              width: 500,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.lightBlue,
-                                    textStyle: TextStyle(
-                                      color: Colors.white,
-                                    )),
-                                child: Text(
-                                  edit ? tr('Edit') : tr('Save'),
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(fontSize: 20),
-                                ),
-                                onPressed: edit
-                                    ? () {
-                                        print(edit);
-                                        setState(() {
-                                          edit = !edit;
-                                          color = Colors.black;
-                                        });
-                                        print(edit);
-                                      }
-                                    : () async {
-                                        CommonUtils.fullScreenProgress(
-                                            context: context);
-                                        UserRequest request = UserRequest(
-                                            name: firstNameController.text,
-                                            email: emailController.text,
-                                            surname: lastNameController.text,
-                                            description:
-                                                descriptionController.text,
-                                            mobileNumber:
-                                                mobileController.text);
-                                        FormData formData = new FormData
-                                            .fromMap(
-                                            jsonDecode(jsonEncode(request)));
-                                        if (image != null) {
-                                          formData.files.add(MapEntry(
-                                            "image",
-                                            await MultipartFile.fromFile(
-                                                image?.path ?? "",
-                                                filename: basename(
-                                                    image?.path ?? "")),
-                                          ));
-                                        }
-                                        //  CommonUtils.fullScreenProgress(context: context);
-                                        String token = await SharedPrefHelper()
-                                            .getWithDefault(
-                                                SharedPrefHelper.token, "null");
-                                        String id = await SharedPrefHelper()
-                                            .getWithDefault("id", "null");
-                                        var res = await NetworkUtil().putApi(
-                                            NetworkUtil.BASE_URL + "user/$id",
-                                            token: token,
-                                            isFormData: true,
-                                            body: formData);
-                                        UserResponse response =
-                                            UserResponse.fromJson(res);
-                                        if (response.success == true) {
-                                          ScaffoldMessenger.of(
-                                                  _scaffoldKey.currentContext!)
-                                              .showSnackBar(SnackBar(
-                                            content: Text(tr(
-                                                "Profile_Update_Successfully")),
-                                            duration:
-                                                Duration(milliseconds: 500),
-                                          ));
-
-                                          print("success");
-                                          CommonUtils.dismissProgressDialog(
-                                              context);
-                                          userResponse = response;
-                                          setState(() {
-                                            edit = true;
-                                            color = Colors.grey;
-                                          });
-                                          // return userResponse;
-                                        } else {
-                                          CommonUtils.dismissProgressDialog(
-                                              context);
-                                        }
-                                      },
-                              )),
                           SizedBox(
                             height: 30.0,
                           )
@@ -562,41 +580,9 @@ class _MyHomePageState extends State<Tutor_Profile> {
         ));
   }
 
-  bool validateEmail(String value) {
-    String pattern =
-        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-    RegExp regex = new RegExp(pattern);
-    if (!regex.hasMatch(value))
-      return false;
-    else
-      return true;
-  }
-
-  getProfle() async {
-    String token =
-        await SharedPrefHelper().getWithDefault(SharedPrefHelper.token, "null");
-    String id = await SharedPrefHelper().getWithDefault("id", "null");
-    var res = await NetworkUtil()
-        .get(NetworkUtil.BASE_URL + "user/$id", token: token);
-    UserResponse response = UserResponse.fromJson(res);
-    if (response.success == true) {
-      //  CommonUtils.dismissProgressDialog(context);
-      userResponse = response;
-      emailController.text = userResponse.data?.email ?? "";
-      firstNameController.text = userResponse.data?.name ?? "";
-      lastNameController.text = userResponse.data?.surname ?? "";
-      mobileController.text = userResponse.data?.mobileNumber.toString() ?? "";
-      descriptionController.text = userResponse.data?.description ?? "";
-      _controller.sink.add(userResponse);
-      _subjectListController.sink.add(userResponse.data?.subjectData  ?? []);
-
-    }
-    return response;
-  }
-
-  subjectGridView(List<String> subjectData) {
+  Widget subjectGridView(List<String> subjectData) {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: StreamBuilder<List<String>>(
           stream: _subjectListController.stream,
           initialData: subjectData,
@@ -608,7 +594,7 @@ class _MyHomePageState extends State<Tutor_Profile> {
     );
   }
 
-  gridView(List<String> data) {
+  Widget gridView(List<String> data) {
     return GridView.count(
       crossAxisCount: 2,
       childAspectRatio: 3.0,
@@ -639,10 +625,5 @@ class _MyHomePageState extends State<Tutor_Profile> {
                 )));
       }).toList(),
     );
-  }
-
-  Future<void> onRefresh() async {
-    await getProfle();
-    return;
   }
 }

@@ -125,7 +125,7 @@ class _CreateTutorProfileState extends State<CreateTutorProfile> {
                       textStyle: const TextStyle(fontSize: 20),
                     ),
                     onPressed: saveSubjects,
-                    child: Text(tr('SAVE')),
+                    child: Text(tr('Salva')),
                   ),
                 ),
               ],
