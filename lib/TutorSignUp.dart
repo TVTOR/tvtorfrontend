@@ -18,10 +18,11 @@ import 'package:fluttertvtor/utils/CommonUtils.dart';
 import 'package:fluttertvtor/utils/SharedPrefHelper.dart';
 import 'package:fluttertvtor/utils/custom_views/CommonStrings.dart';
 import 'package:easy_localization/easy_localization.dart';
+
 class TutorSignUp extends StatefulWidget {
   final bool isTutor;
 
-  TutorSignUp({Key? key, this.title,required this.isTutor}) : super(key: key);
+  TutorSignUp({Key? key, this.title, required this.isTutor}) : super(key: key);
 
   final String? title;
 
@@ -36,7 +37,6 @@ class _MyHomePageState extends State<TutorSignUp> with RegisterContract {
 //  String _locationSelection;
 //  List data = List();
 
-
   TextEditingController userFirstNameController = new TextEditingController();
   TextEditingController userLastNameController = new TextEditingController();
   TextEditingController userEmailController = new TextEditingController();
@@ -48,8 +48,6 @@ class _MyHomePageState extends State<TutorSignUp> with RegisterContract {
   TextEditingController codeController = new TextEditingController();
   late RegisterPresenter presenter;
   late RegisterRequest request;
-
-
 
   @override
   void initState() {
@@ -86,7 +84,7 @@ class _MyHomePageState extends State<TutorSignUp> with RegisterContract {
 //      dataList = resBody.data.map((Data value) =>
 //          DropdownMenuItem<String>(child: Text(value.location))
 //      ).toList();
-      dataList = resBody.data?.data  ?? [];
+      dataList = resBody.data?.data ?? [];
     });
 
     print(resBody);
@@ -107,15 +105,10 @@ class _MyHomePageState extends State<TutorSignUp> with RegisterContract {
             body: SingleChildScrollView(
               child: Stack(
                 children: <Widget>[
-                  Container(
-                      child: Image.asset(
-                        "assets/bg_white.png",
-                        fit: BoxFit.fill,
-                      ),
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              fit: BoxFit.fill,
-                              image: AssetImage("assets/bg_white.png")))),
+                  Image.asset(
+                    "assets/bg_white.png",
+                    fit: BoxFit.fill,
+                  ),
                   Stack(
                     children: <Widget>[
                       Container(
@@ -123,214 +116,241 @@ class _MyHomePageState extends State<TutorSignUp> with RegisterContract {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  child: Image.asset(
-                                    "assets/header_image.png",
-                                    fit: BoxFit.fill,
-                                    color: Colors.transparent,
-                                  ),
-                                ),
-                                Visibility(
-                                  visible: !isTutor,
-                                  child: Container(
-//                  color: Colors.pink,
-                                    height: 100,
-                                    child: ListTile(
-                                      title: Padding(
-                                        padding: EdgeInsets.fromLTRB(5, 10, 0, 10),
-                                        child: Text(
-                                          tr('Sign_Up'),
-                                          textAlign: TextAlign.left,
-                                          style: TextStyle(
-                                            fontSize: 25,
+                            Container(
+                              width: MediaQuery.of(context).size.width,
+                              child: Image.asset(
+                                "assets/header_image.png",
+                                fit: BoxFit.fill,
+                                color: Colors.transparent,
+                              ),
+                            ),
+                            Visibility(
+                              visible: !isTutor,
+                              child: Container(
+                                height: 100,
+                                child: ListTile(
+                                  title: Padding(
+                                    padding: EdgeInsets.fromLTRB(5, 10, 0, 10),
+                                    child: Text(
+                                      tr('Sign_Up'),
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        fontSize: 25,
 //                                        color: Colors.indigo[900],
-                                            color: HexColor("#122345"),
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ),
+                                        color: HexColor("#122345"),
+                                        fontWeight: FontWeight.w700,
                                       ),
-                                      contentPadding: const EdgeInsets.all(10.0),
-                                      subtitle: Padding(
-                                        padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
-                                        child: Text(
-                                          tr('As_Tutor_Manager'),
-                                          textAlign: TextAlign.left,
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            color: Colors.black,
+                                    ),
+                                  ),
+                                  contentPadding: const EdgeInsets.all(10.0),
+                                  subtitle: Padding(
+                                    padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
+                                    child: Text(
+                                      tr('As_Tutor_Manager'),
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.black,
 //                                          fontWeight: FontWeight.bold
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
+                                        fontWeight: FontWeight.w500,
                                       ),
                                     ),
                                   ),
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.only(top: 10),
-                                ),
-                                Visibility(
-                                  visible: isTutor,
-                                  child: Container(
-//                          color: Colors.pink,
-                                    height: 80,
-                                    child: ListTile(
-                                      title: Padding(
-                                        padding: EdgeInsets.fromLTRB(5, 20, 0, 10),
-                                        child: Text(
-                                          tr('Sign_Up'),
-                                          textAlign: TextAlign.left,
-                                          style: TextStyle(
-                                            fontSize: 25,
-                                            color: HexColor("#122345"),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(top: 10),
+                            ),
+                            Visibility(
+                              visible: isTutor,
+                              child: Container(
+                                height: 80,
+                                child: ListTile(
+                                  title: Padding(
+                                    padding: EdgeInsets.fromLTRB(5, 20, 0, 10),
+                                    child: Text(
+                                      tr('Sign_Up'),
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        fontSize: 25,
+                                        color: HexColor("#122345"),
 //                                        fontWeight: FontWeight.bold,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ),
+                                        fontWeight: FontWeight.w700,
                                       ),
-                                      contentPadding: const EdgeInsets.all(10.0),
-                                      subtitle: Padding(
-                                        padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
-                                        child: Text(
-                                          tr('As_Tutor'),
-                                          textAlign: TextAlign.left,
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            color: Colors.black,
+                                    ),
+                                  ),
+                                  contentPadding: const EdgeInsets.all(10.0),
+                                  subtitle: Padding(
+                                    padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
+                                    child: Text(
+                                      tr('As_Tutor'),
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.black,
 //                                          fontWeight: FontWeight.bold
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
+                                        fontWeight: FontWeight.w500,
                                       ),
                                     ),
                                   ),
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                    top: 0,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 20),
-                                  child: Form(
-                                      key: _formKey,
-                                      child: Column(children: <Widget>[
-                                        Container(
-                                          padding:
-                                          EdgeInsets.fromLTRB(20, 20, 20, 0),
-                                          child: TextFormField(
-                                            controller: userFirstNameController,
-                                            decoration: InputDecoration(
-                                              border: OutlineInputBorder(),
-                                              labelText: tr('Form.First_Name'),
-                                            ),
-                                            validator: (val) {
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(bottom: 20, top: 0),
+                              child: Form(
+                                  key: _formKey,
+                                  child: Column(children: <Widget>[
+                                    Visibility(
+                                      visible: isTutor,
+                                      child: Container(
+                                        padding:
+                                            EdgeInsets.fromLTRB(16, 40, 16, 0),
+                                        child: Center(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: <Widget>[
+                                              Text(
+                                                tr('Form.Enter_your_given_code'),
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 15),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.only(
+                                                  top: 10,
+                                                ),
+                                              ),
+                                              container1
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      padding:
+                                          EdgeInsets.fromLTRB(16, 20, 16, 0),
+                                      child: TextFormField(
+                                        controller: userFirstNameController,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          labelText: tr('Form.First_Name'),
+                                        ),
+                                        validator: (val) {
 //                                        if (val.length < 3)
 //                                          return 'Name must be more than 2 character';
 //                                        else
-                                              if (val == null || val.isEmpty) {
-                                                return tr("Form.Please_Enter_First_Name");
-                                              } else {
-                                                return null;
-                                              }
-                                            },
-                                            onSaved: (val) {
-                                              final value = val ??"";
-                                              print("on saved name " +
-                                                  value +
-                                                  " >> " +
-                                                  userFirstNameController.text);
-                                            },
-                                          ),
-                                        ),
+                                          if (val == null || val.isEmpty) {
+                                            return tr(
+                                                "Form.Please_Enter_First_Name");
+                                          } else {
+                                            return null;
+                                          }
+                                        },
+                                        onSaved: (val) {
+                                          final value = val ?? "";
+                                          print("on saved name " +
+                                              value +
+                                              " >> " +
+                                              userFirstNameController.text);
+                                        },
+                                      ),
+                                    ),
 //                          Padding( padding: EdgeInsets.only(top: 10,),),
 
-                                        Container(
-                                          padding:
-                                          EdgeInsets.fromLTRB(20, 10, 20, 0),
-                                          child: TextFormField(
-                                            controller: userLastNameController,
-                                            decoration: InputDecoration(
-                                              border: OutlineInputBorder(),
-                                              labelText: tr('Form.Last_Name'),
-                                            ),
-                                            validator: (val) {
+                                    Container(
+                                      padding:
+                                          EdgeInsets.fromLTRB(16, 10, 16, 0),
+                                      child: TextFormField(
+                                        controller: userLastNameController,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          labelText: tr('Form.Last_Name'),
+                                        ),
+                                        validator: (val) {
 //                                        if (val.length < 3)
 //                                          return 'Name must be more than 2 character';
 //                                        else
-                                              if (val == null ||val.isEmpty) {
-                                                return tr('Form.Please_enter_Last_name');
-                                              } else {
-                                                return null;
-                                              }
-                                            },
-                                            onSaved: (val) {
-                                              final value = val ??"";
-                                              print("on saved name " +
-                                                  value +
-                                                  " >> " +
-                                                  userFirstNameController.text);
-                                            },
-                                          ),
-                                        ),
-                                        Container(
-                                          padding:
-                                          EdgeInsets.fromLTRB(20, 10, 20, 0),
-                                          child: TextFormField(
+                                          if (val == null || val.isEmpty) {
+                                            return tr(
+                                                'Form.Please_enter_Last_name');
+                                          } else {
+                                            return null;
+                                          }
+                                        },
+                                        onSaved: (val) {
+                                          final value = val ?? "";
+                                          print("on saved name " +
+                                              value +
+                                              " >> " +
+                                              userFirstNameController.text);
+                                        },
+                                      ),
+                                    ),
+                                    Container(
+                                      padding:
+                                          EdgeInsets.fromLTRB(16, 10, 16, 0),
+                                      child: TextFormField(
 //                          obscureText: true,
-                                            controller: userEmailController,
-                                            decoration: InputDecoration(
-                                              border: OutlineInputBorder(),
-                                              labelText: tr('Form.Email_id'),
-                                            ),
-                                            validator: (val) {
-                                              if (!validateEmail(
-                                                  userEmailController.text)) {
-                                                return CommonStrings.validEmail;
-                                              } else if (val == null || val.isEmpty) {
-                                                return tr("Form.Please_Enter_Email_Id");
-                                              }
-                                              {
-                                                return null;
-                                              }
-                                            },
-                                            onSaved: (val) {
-                                              final value = val ??"";
-                                              print(
-                                                  "on saved email " +
-                                                      value +
-                                                      " >> " +
-                                                      userEmailController.text);
-                                            },
-                                          ),
+                                        controller: userEmailController,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          labelText: tr('Form.Email_id'),
                                         ),
+                                        validator: (val) {
+                                          if (!validateEmail(
+                                              userEmailController.text)) {
+                                            return CommonStrings.validEmail;
+                                          } else if (val == null ||
+                                              val.isEmpty) {
+                                            return tr(
+                                                "Form.Please_Enter_Email_Id");
+                                          }
+                                          {
+                                            return null;
+                                          }
+                                        },
+                                        onSaved: (val) {
+                                          final value = val ?? "";
+                                          print("on saved email " +
+                                              value +
+                                              " >> " +
+                                              userEmailController.text);
+                                        },
+                                      ),
+                                    ),
 
-                                        Visibility(
-                                            visible: !isTutor,
-                                            child: Container(
-                                              padding: EdgeInsets.fromLTRB(
-                                                  20, 10, 20, 0),
-                                              child: Column(
-                                                crossAxisAlignment:
+                                    Visibility(
+                                        visible: !isTutor,
+                                        child: Container(
+                                          padding: EdgeInsets.fromLTRB(
+                                              16, 10, 16, 0),
+                                          child: Column(
+                                            crossAxisAlignment:
                                                 CrossAxisAlignment.center,
-                                                mainAxisAlignment:
+                                            mainAxisAlignment:
                                                 MainAxisAlignment.center,
-                                                children: <Widget>[
-                                                  Container(
-                                                    padding: EdgeInsets.fromLTRB(
-                                                        10, 0, 20, 0),
-                                                    width: 500,
-                                                    child: DropdownButton<String>(
-                                                      isExpanded: true,
-                                                      underline: Container(
-                                                        height: 1.0,
-                                                      ),
+                                            children: <Widget>[
+                                              Container(
+                                                padding: EdgeInsets.fromLTRB(
+                                                    10, 0, 20, 0),
+                                                width: 500,
+                                                child: DropdownButton<String>(
+                                                  isExpanded: true,
+                                                  underline: Container(
+                                                    height: 1.0,
+                                                  ),
 //                                ),
 
-                                                      hint: Text(tr("Choose_Location")),
-                                                      items: dataList
-                                                          .map((value) =>
+                                                  hint: Text(
+                                                      tr("Choose_Location")),
+                                                  items: dataList
+                                                      .map((value) =>
                                                           DropdownMenuItem<
                                                               String>(
                                                             child: Text(
@@ -340,179 +360,161 @@ class _MyHomePageState extends State<TutorSignUp> with RegisterContract {
                                                             ),
                                                             value: value.sId,
                                                           ))
-                                                          .toList(),
-                                                      onChanged: (newVal) {
-                                                        // setState(() {
-                                                        locationList.clear();
-                                                        location = newVal;
-                                                        print(location.toString());
-                                                        if (location != null) {
-                                                          locationList.add(location!);
-                                                        }
-                                                        setState(() {});
+                                                      .toList(),
+                                                  onChanged: (newVal) {
+                                                    // setState(() {
+                                                    locationList.clear();
+                                                    location = newVal;
+                                                    print(location.toString());
+                                                    if (location != null) {
+                                                      locationList
+                                                          .add(location!);
+                                                    }
+                                                    setState(() {});
 //                                                        });
-                                                      },
-                                                      value: location,
-                                                    ),
-                                                    decoration: ShapeDecoration(
-                                                      shape: RoundedRectangleBorder(
-                                                        side: BorderSide(
-                                                            width: 1.0,
-                                                            style:
+                                                  },
+                                                  value: location,
+                                                ),
+                                                decoration: ShapeDecoration(
+                                                  shape: RoundedRectangleBorder(
+                                                    side: BorderSide(
+                                                        width: 1.0,
+                                                        style:
                                                             BorderStyle.solid),
-                                                        borderRadius:
+                                                    borderRadius:
                                                         BorderRadius.all(
                                                             Radius.circular(
                                                                 5.0)),
-                                                      ),
-                                                    ),
-                                                  )
-
-//                            Icon(Icons.keyboard_arrow_down,
-//                                    color: Colors.black),
-                                                ],
-                                              ),
-                                            )),
-
-                                        Visibility(
-                                            visible: isTutor,
-                                            child: Container(
-                                              padding: EdgeInsets.fromLTRB(
-                                                  20, 10, 20, 0),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                                mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                                children: <Widget>[
-                                                  TextFormField(
-                                                    controller:
-                                                    userMobileController,
-                                                    decoration: InputDecoration(
-                                                      border: OutlineInputBorder(),
-//                                labelText: 'Choose Location',
-                                                      labelText: tr('Form.Mobile_Number'),
-                                                    ),
-                                                    validator: (String? val) {
-                                                      if (val == null || val.isEmpty) {
-                                                        return tr('Form.Please_enter_mobile_number');  // Or any message you want for empty input
-                                                      }
-                                                      if (val.length < 10) {
-                                                        return tr('Form.Wrong_Number');
-                                                      }
-                                                      if (!validateMobile(userMobileController.text)) {
-                                                        return CommonStrings.validMobile;
-                                                      }
-                                                      return null;
-                                                    },
-                                                    onSaved: (val) {
-                                                      final value = val ??"";
-                                                      print(
-                                                          "on saved mobileNumber " +
-                                                              value +
-                                                              " >> " +
-                                                              userMobileController
-                                                                  .text);
-                                                    },
                                                   ),
+                                                ),
+                                              )
+
 //                            Icon(Icons.keyboard_arrow_down,
 //                                    color: Colors.black),
-                                                ],
-                                              ),
-                                            )),
-                                        Container(
-                                          padding:
-                                          EdgeInsets.fromLTRB(20, 10, 20, 0),
-                                          child: TextFormField(
-                                              obscureText: true,
-                                              controller: passwordController,
-                                              decoration: InputDecoration(
-                                                border: OutlineInputBorder(),
-                                                labelText: tr('Form.Password'),
-                                              ),
-                                              validator: (val) {
-                                                if (val == null ||val.isEmpty) return tr('Form.Empty');
-                                                return null;
-                                              }),
-                                        ),
-                                        Container(
-                                          padding:
-                                          EdgeInsets.fromLTRB(20, 10, 20, 0),
-                                          child: TextFormField(
-                                              obscureText: true,
-                                              controller: confirmpasswordController,
-                                              decoration: InputDecoration(
-                                                border: OutlineInputBorder(),
-                                                labelText: tr('Form.Confirm_Password'),
-                                              ),
-                                              validator: (val) {
-                                                if (val == null || val.isEmpty) return tr('Form.Empty');
-                                                if (val != passwordController.text)
-                                                  return tr('Form.Not_Match');
-                                                return null;
-                                              }),
-                                        ),
+                                            ],
+                                          ),
+                                        )),
 
-                                        Padding(
-                                          padding: EdgeInsets.only(top: 10),
-                                        ),
-//                      Padding( padding: EdgeInsets.only(top: 20),),
-
-                                        Visibility(
-                                            visible: isTutor,
-                                            child: Container(
-                                                padding: EdgeInsets.fromLTRB(
-                                                    20, 0, 20, 0),
-                                                child: Center(
-                                                    child: Column(
-                                                        crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                        mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                        children: <Widget>[
-                                                          Text(
-                                                            tr('Form.Enter_your_given_code'),
-                                                            style: TextStyle(
-                                                                color: Colors.black,
-                                                                fontSize: 15),
-                                                          ),
-                                                          Padding(
-                                                            padding: EdgeInsets.only(
-                                                              top: 10,
-                                                            ),
-                                                          ),
-                                                          Container(
-//                margin: EdgeInsets.only(left: 20,),
-                                                            width: 320,
-
-                                                            child: container1,
-                                                          )
-                                                        ])))),
-                                        Container(
-                                            padding:
-                                            EdgeInsets.fromLTRB(20, 10, 20, 10),
-                                            height: 70,
-                                            width: 500,
-                                            child: ElevatedButton(
-                                              onPressed: () {
-                                                submit();
-                                              },
-                                              style: ElevatedButton.styleFrom(
-                                                backgroundColor: HexColor("#10acff"),
-                                                textStyle: TextStyle(color: Colors.white),// background color
-                                              ),
-                                              child: Text(
-                                                'SIGN_UP',
-                                                style: const TextStyle(
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.w700,
+                                    Visibility(
+                                        visible: isTutor,
+                                        child: Container(
+                                          padding: EdgeInsets.fromLTRB(
+                                              16, 10, 16, 0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              TextFormField(
+                                                controller:
+                                                    userMobileController,
+                                                decoration: InputDecoration(
+                                                  border: OutlineInputBorder(),
+//                                labelText: 'Choose Location',
+                                                  labelText:
+                                                      tr('Form.Mobile_Number'),
                                                 ),
-                                              ).tr(),
-                                            )),
-                                      ])),
-                                )
-                              ])),
+                                                validator: (String? val) {
+                                                  if (val == null ||
+                                                      val.isEmpty) {
+                                                    return tr(
+                                                        'Form.Please_enter_mobile_number'); // Or any message you want for empty input
+                                                  }
+                                                  if (val.length < 10) {
+                                                    return tr(
+                                                        'Form.Wrong_Number');
+                                                  }
+                                                  if (!validateMobile(
+                                                      userMobileController
+                                                          .text)) {
+                                                    return CommonStrings
+                                                        .validMobile;
+                                                  }
+                                                  return null;
+                                                },
+                                                onSaved: (val) {
+                                                  final value = val ?? "";
+                                                  print(
+                                                      "on saved mobileNumber " +
+                                                          value +
+                                                          " >> " +
+                                                          userMobileController
+                                                              .text);
+                                                },
+                                              ),
+//                            Icon(Icons.keyboard_arrow_down,
+//                                    color: Colors.black),
+                                            ],
+                                          ),
+                                        )),
+                                    Container(
+                                      padding:
+                                          EdgeInsets.fromLTRB(16, 10, 16, 0),
+                                      child: TextFormField(
+                                          obscureText: true,
+                                          controller: passwordController,
+                                          decoration: InputDecoration(
+                                            border: OutlineInputBorder(),
+                                            labelText: tr('Form.Password'),
+                                          ),
+                                          validator: (val) {
+                                            if (val == null || val.isEmpty)
+                                              return tr('Form.Empty');
+                                            return null;
+                                          }),
+                                    ),
+                                    Container(
+                                      padding:
+                                          EdgeInsets.fromLTRB(16, 10, 16, 0),
+                                      child: TextFormField(
+                                          obscureText: true,
+                                          controller: confirmpasswordController,
+                                          decoration: InputDecoration(
+                                            border: OutlineInputBorder(),
+                                            labelText:
+                                                tr('Form.Confirm_Password'),
+                                          ),
+                                          validator: (val) {
+                                            if (val == null || val.isEmpty)
+                                              return tr('Form.Empty');
+                                            if (val != passwordController.text)
+                                              return tr('Form.Not_Match');
+                                            return null;
+                                          }),
+                                    ),
+
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 10),
+                                    ),
+//                      Padding( padding: EdgeInsets.only(top: 20),)
+                                    Container(
+                                        padding:
+                                            EdgeInsets.fromLTRB(16, 10, 16, 10),
+                                        height: 70,
+                                        width: 500,
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            submit();
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor:
+                                                HexColor("#10acff"),
+                                            textStyle: TextStyle(
+                                                color: Colors
+                                                    .white), // background color
+                                          ),
+                                          child: Text(
+                                            'SIGN_UP',
+                                            style: const TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ).tr(),
+                                        )),
+                                  ])),
+                            )
+                          ])),
                       IconButton(
                           icon: Icon(
                             Icons.close,
@@ -533,31 +535,25 @@ class _MyHomePageState extends State<TutorSignUp> with RegisterContract {
         padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
         dashPattern: [9, 5],
       ),
-      child: Container(
-//        height: 50,
-        child: TextFormField(
-//      obscureText: true,
-          controller: codeController,
-          decoration: InputDecoration(
-            hintText: tr('Form.Code'),
-            border: InputBorder.none,
-            focusedBorder: InputBorder.none,
-            enabledBorder: InputBorder.none,
-            errorBorder: InputBorder.none,
-            disabledBorder: InputBorder.none,
-          ),
-          validator: (String? val) {
-            if (val == null || val.isEmpty) {
-              return tr('Form.Code_is_required');
-            } else if (val.length < 3) {
-              return tr('Form.Please_enter_valid_code');
-            } else {
-              return null;
-            }
-          },
+      child: TextFormField(
+        controller: codeController,
+        decoration: InputDecoration(
+          hintText: tr('Form.Code'),
+          border: InputBorder.none,
+          focusedBorder: InputBorder.none,
+          enabledBorder: InputBorder.none,
+          errorBorder: InputBorder.none,
+          disabledBorder: InputBorder.none,
         ),
-        width: double.maxFinite,
-        decoration: BoxDecoration(),
+        validator: (String? val) {
+          if (val == null || val.isEmpty) {
+            return tr('Form.Code_is_required');
+          } else if (val.length < 3) {
+            return tr('Form.Please_enter_valid_code');
+          } else {
+            return null;
+          }
+        },
       ),
     );
   }
@@ -594,7 +590,7 @@ class _MyHomePageState extends State<TutorSignUp> with RegisterContract {
       }
     } else {
       CommonUtils.showAlertDialog(
-          context, CommonStrings.alert, response.message ??"");
+          context, CommonStrings.alert, response.message ?? "");
     }
   }
 
@@ -627,8 +623,8 @@ class _MyHomePageState extends State<TutorSignUp> with RegisterContract {
               : codeController.text.toString());
       print(
           "name :${request.name},\n surname :${request.surname},\n password :${request.password},"
-              "\nemail :${request.email},\n usertype: ${request.userType},"
-              "\n location : ${request.location},\nmob no :${request.mobileNumber},\n code :${request.code}");
+          "\nemail :${request.email},\n usertype: ${request.userType},"
+          "\n location : ${request.location},\nmob no :${request.mobileNumber},\n code :${request.code}");
 
       CommonUtils.isNetworkAvailable().then((bool connected) async {
         debugPrint("Network connection");
@@ -636,24 +632,27 @@ class _MyHomePageState extends State<TutorSignUp> with RegisterContract {
           debugPrint("Network connected: $connected");
           CommonUtils.fullScreenProgress(context: context);
           // presenter.doRegister(jsonEncode(request));
-          var res = await NetworkUtil().post(
-              url: NetworkUtil.BASE_URL + "register", body: request);
+          var res = await NetworkUtil()
+              .post(url: NetworkUtil.BASE_URL + "register", body: request);
           rr.RegisterResponse response = rr.RegisterResponse.fromJson(res);
           Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => SignIn(
-                    isTutor: isTutor,
-                  )));
+                        isTutor: isTutor,
+                      )));
           if (response.success == true) {
             CommonUtils.dismissProgressDialog(context);
-        isTutor?  CommonUtils.showToast(msg: response.message ?? "") : CommonUtils.showToast(msg: tr("Tutor_Manager_Created_Successfully"));
+            isTutor
+                ? CommonUtils.showToast(msg: response.message ?? "")
+                : CommonUtils.showToast(
+                    msg: tr("Tutor_Manager_Created_Successfully"));
             Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => SignIn(
-                      isTutor: isTutor,
-                    )));
+                          isTutor: isTutor,
+                        )));
           } else {
             CommonUtils.dismissProgressDialog(context);
 
@@ -661,7 +660,7 @@ class _MyHomePageState extends State<TutorSignUp> with RegisterContract {
                 context: context,
                 builder: (context) {
                   return AlertDialog(
-                    title: Text(response.message ??""),
+                    title: Text(response.message ?? ""),
                   );
                 });
           }
