@@ -100,7 +100,7 @@ class _MyHomePageState extends State<TutorManagerHome> with TutorsContract {
 
   @override
   void onTutorsError(String error) {
-    CommonUtils.showToast(msg: error);
+    CommonUtils.showToast(msg: tr("Something_Wrong"));
   }
 
   @override
@@ -133,7 +133,7 @@ class _MyHomePageState extends State<TutorManagerHome> with TutorsContract {
       return false;
     });
     if (res.statusCode == 200) {
-      CommonUtils.showToast(msg: res.message ?? "");
+      CommonUtils.showToast(msg: tr("Operation_Complete"));
       return true;
     }
     return false;

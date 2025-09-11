@@ -63,28 +63,23 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Container(
-        color: Colors.white,
-        child: Stack(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                fit: BoxFit.fill,
+                image: AssetImage("assets/bg_white.png"))),
+        child: Column(
           children: <Widget>[
             Container(
-                child: Image.asset(
-              "assets/bg_white.png",
-              fit: BoxFit.fill,
-            )),
-            Container(
-              height: MediaQuery.of(context).size.height,
+              child: Image.asset("assets/header_img.png",
+                  color: Colors.transparent),
+            ),
+            Expanded(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Container(
-                    child: Image.asset("assets/header_img.png",
-                        color: Colors.transparent),
-                  ),
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
                         Padding(
                           padding: const EdgeInsets.only(left: 30.0),
                           child: Column(

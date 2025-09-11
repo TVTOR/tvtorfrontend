@@ -103,7 +103,15 @@
   "Please_select_atleast_one_location": "Please_select_atleast_one_location",
   "Success": "Success",
   "Comment": "Comment",
-  "Assign_tutor": "Assign_tutor"
+  "Assign_tutor": "Assegna Tutor",
+  "Registration_Complete": "Registrazione completata",
+  "Operation_Complete": "Operazione completata",
+  "Tutor_Linked_Success": "Tutor associato al cliente",
+  "Connection_Timeout": "Connessione scaduta. Riprova",
+  "No_Connection": "Connessione assente. Controlla la rete e riprova",
+  "Something_Wrong": "Qualcosa non ha funzionato. Riprova tra poco",
+  "Check_Fields": "Controlla i campi evidenziati",
+  "Tutor_Manager_Created_Successfully": "Tutor Manager creato con successo"
 
 
 }

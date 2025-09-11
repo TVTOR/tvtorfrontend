@@ -185,7 +185,7 @@ class SelectTutorScreenState extends State<SelectTutorScreen>
 
   @override
   void onTutorsError(String error) {
-    CommonUtils.showToast(msg: error);
+    CommonUtils.showToast(msg: tr("Something_Wrong"));
   }
 
   @override
@@ -240,10 +240,10 @@ class SelectTutorScreenState extends State<SelectTutorScreen>
   void onAssignTutorSuccess(BaseResponse response) {
     CommonUtils.dismissProgressDialog(context);
     if (response.statusCode == 200) {
-      CommonUtils.showToast(msg: response.message ?? "");
+      CommonUtils.showToast(msg: tr("Tutor_Linked_Success"));
       Navigator.pop(context);
     } else {
-      CommonUtils.showToast(msg: response.message ?? "");
+      CommonUtils.showToast(msg: tr("Something_Wrong"));
     }
   }
 
