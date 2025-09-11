@@ -369,8 +369,7 @@ class _MyHomePageState extends State<SignIn> with LoginContract {
           }
         } else {
           print("no internet");
-
-//          CommonUtils.showToast(msg: CommonStrings.noInternet);
+          CommonUtils.showToast(msg: tr("No_Connection"));
         }
       });
     }
@@ -412,7 +411,7 @@ class _MyHomePageState extends State<SignIn> with LoginContract {
                 ModalRoute.withName("/"));
           }
         } else {
-//          CommonUtils.showToast(msg: CommonStrings.noInternet);
+          CommonUtils.showToast(msg: tr("No_Connection"));
           print(" no internet");
         }
       });

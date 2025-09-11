@@ -105,24 +105,15 @@ class _MyHomePageState extends State<TutorSignUp> with RegisterContract {
             key: _scaffoldKey,
             backgroundColor: Colors.white,
             body: SingleChildScrollView(
-              child: Stack(
-                children: <Widget>[
-                  Container(
-                      child: Image.asset(
-                        "assets/bg_white.png",
-                        fit: BoxFit.fill,
-                      ),
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              fit: BoxFit.fill,
-                              image: AssetImage("assets/bg_white.png")))),
-                  Stack(
-                    children: <Widget>[
-                      Container(
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
+              child: Container(
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: AssetImage("assets/bg_white.png"))),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
                                 Container(
                                   width: MediaQuery.of(context).size.width,
                                   child: Image.asset(
@@ -320,7 +311,6 @@ class _MyHomePageState extends State<TutorSignUp> with RegisterContract {
                                                   Container(
                                                     padding: EdgeInsets.fromLTRB(
                                                         10, 0, 20, 0),
-                                                    width: 500,
                                                     child: DropdownButton<String>(
                                                       isExpanded: true,
                                                       underline: Container(
@@ -493,7 +483,7 @@ class _MyHomePageState extends State<TutorSignUp> with RegisterContract {
                                             padding:
                                             EdgeInsets.fromLTRB(20, 10, 20, 10),
                                             height: 70,
-                                            width: 500,
+                                            width: MediaQuery.of(context).size.width,
                                             child: ElevatedButton(
                                               onPressed: () {
                                                 submit();
@@ -519,10 +509,7 @@ class _MyHomePageState extends State<TutorSignUp> with RegisterContract {
                             color: Colors.white,
                           ),
                           onPressed: () => Navigator.of(context).pop()),
-                    ],
-                  ),
-                ],
-              ),
+                    ])),
             )));
   }
 
@@ -565,7 +552,7 @@ class _MyHomePageState extends State<TutorSignUp> with RegisterContract {
   @override
   void onRegisterError(String error) {
     CommonUtils.dismissProgressDialog(context);
-    CommonUtils.showToast(msg: error);
+    CommonUtils.showToast(msg: tr("Something_Wrong"));
     // TODO: implement onRegisterError
   }
 
@@ -647,7 +634,7 @@ class _MyHomePageState extends State<TutorSignUp> with RegisterContract {
                   )));
           if (response.success == true) {
             CommonUtils.dismissProgressDialog(context);
-        isTutor?  CommonUtils.showToast(msg: response.message ?? "") : CommonUtils.showToast(msg: tr("Tutor_Manager_Created_Successfully"));
+        isTutor?  CommonUtils.showToast(msg: tr("Registration_Complete")) : CommonUtils.showToast(msg: tr("Tutor_Manager_Created_Successfully"));
             Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -667,7 +654,7 @@ class _MyHomePageState extends State<TutorSignUp> with RegisterContract {
           }
         } else {
           debugPrint(" no internet");
-//          CommonUtils.showToast(msg: CommonStrings.noInternet);
+          CommonUtils.showToast(msg: tr("No_Connection"));
         }
       });
     }

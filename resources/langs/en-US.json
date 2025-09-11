@@ -103,7 +103,15 @@
   "Please_select_atleast_one_location": "Please_select_atleast_one_location",
   "Success": "Success",
   "Comment": "Comment",
-  "Assign_tutor": "Assign_tutor"
+  "Assign_tutor": "Assign Tutor",
+  "Registration_Complete": "Registration complete",
+  "Operation_Complete": "Done",
+  "Tutor_Linked_Success": "Tutor linked to client",
+  "Connection_Timeout": "Connection timed out. Please try again",
+  "No_Connection": "No connection. Check your network and try again",
+  "Something_Wrong": "Something went wrong. Try again in a moment",
+  "Check_Fields": "Please check the highlighted fields",
+  "Tutor_Manager_Created_Successfully": "Tutor manager created successfully"
 
 
 }
