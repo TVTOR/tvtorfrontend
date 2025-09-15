@@ -44,7 +44,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   late final bool? isTutor;
 
-//  int _groupValue = -1;
   Color _iconColor = Colors.grey;
   Color _iconColor2 = Colors.grey;
   Color borderColor = Colors.grey;
@@ -53,6 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool pressManager = false;
 
   int? selectedUser; // 0 means Tutor and 1 means Tutor manager
+  
   @override
   void initState() {
     isTutor = widget.isTutor;
@@ -61,7 +61,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
@@ -80,172 +79,163 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.only(left: 30.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Padding(
-                                  padding: const EdgeInsets.only(left: 0.0),
-                                  child: Text(tr("Sign_Up"),
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w700,
-                                          color: HexColor("#122345"),
-                                          fontSize: 25))),
-                              Padding(
-                                  padding: const EdgeInsets.only(left: 5.0),
-                                  child: Text(tr("Choose_Your_Self"),
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.black,
-                                          fontSize: 17))),
-                            ],
-                          ),
-                        ),
+                            padding: const EdgeInsets.only(left: 0.0),
+                            child: Text(tr("Sign_Up"),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    color: HexColor("#122345"),
+                                    fontSize: 25))),
                         Padding(
-                            padding: EdgeInsets.only(
-                          top: 20,
-                        )),
-                        Container(
-//height: 250,
-//        color: Colors.pink,
-                            child: Row(
-//                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.only(left: 30),
-                            ),
-//                            Padding(
-//                                padding: EdgeInsets.only(bottom: 30)),
-                            MaterialButton(
-                              minWidth: 110.0,
-                              height: 250.0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(60.0),
-                                side: BorderSide(
-                                    color: selectedUser == null
-                                        ? Colors.grey
-                                        : selectedUser == 0
-                                            ? Colors.blue
-                                            : Colors.grey,
-                                    width: 2),
-                              ),
-                              child: Column(
-                                children: <Widget>[
-                                  CircleAvatar(
-                                    radius: 49,
-                                    child: Image.asset('assets/tutor.png'),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(top: 20),
-                                  ),
-                                  Text(
-                                    tr("Tutor"),
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 15),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(top: 30),
-                                  ),
-                                  Icon(
-                                    Icons.check_circle,
-                                    color: selectedUser == null
-                                        ? Colors.grey
-                                        : selectedUser == 0
-                                            ? Colors.blue
-                                            : Colors.grey,
-                                    size: 40.0,
-                                  ),
-                                ],
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  selectedUser = 0;
-                                });
-
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            TutorSignUp(isTutor: true)));
-                              },
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                right: 20,
-                                left: 20,
-                              ),
-                            ),
-                            MaterialButton(
-                              minWidth: 110.0,
-                              height: 250.0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(60.0),
-                                side: BorderSide(
-                                    color: selectedUser == null
-                                        ? Colors.grey
-                                        : selectedUser == 1
-                                            ? Colors.blue
-                                            : Colors.grey,
-                                    width: 2),
-                              ),
-                              child: Column(
-                                children: <Widget>[
-                                  CircleAvatar(
-                                    radius: 49,
-                                    child: Image.asset('assets/tutor.png'),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(top: 20),
-                                  ),
-                                  Text(
-                                    tr("Tutor_Manager"),
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 15),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(top: 30),
-                                  ),
-                                  Icon(
-                                    Icons.check_circle,
-                                    color: selectedUser == null
-                                        ? Colors.grey
-                                        : selectedUser == 1
-                                            ? Colors.blue
-                                            : Colors.grey,
-                                    size: 40.0,
-                                  )
-                                ],
-                              ),
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            TutorSignUp(isTutor: false)));
-                                print(selectedUser);
-                                setState(() {
-                                  selectedUser = 1;
-                                });
-                              },
-                            ),
-                          ],
-                        )),
-                        Padding(
-                            padding: EdgeInsets.only(
-                          bottom: 40,
-                        )),
+                            padding: const EdgeInsets.only(left: 5.0),
+                            child: Text(tr("Choose_Your_Self"),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black,
+                                    fontSize: 17))),
                       ],
                     ),
-                  )
+                  ),
+                  Padding(
+                      padding: EdgeInsets.only(
+                    top: 20,
+                  )),
+                  Container(
+                      child: Row(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(left: 30),
+                      ),
+                      MaterialButton(
+                        minWidth: 110.0,
+                        height: 250.0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(60.0),
+                          side: BorderSide(
+                              color: selectedUser == null
+                                  ? Colors.grey
+                                  : selectedUser == 0
+                                      ? Colors.blue
+                                      : Colors.grey,
+                              width: 2),
+                        ),
+                        child: Column(
+                          children: <Widget>[
+                            CircleAvatar(
+                              radius: 49,
+                              child: Image.asset('assets/tutor.png'),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(top: 20),
+                            ),
+                            Text(
+                              tr("Tutor"),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 15),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(top: 30),
+                            ),
+                            Icon(
+                              Icons.check_circle,
+                              color: selectedUser == null
+                                  ? Colors.grey
+                                  : selectedUser == 0
+                                      ? Colors.blue
+                                      : Colors.grey,
+                              size: 40.0,
+                            ),
+                          ],
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            selectedUser = 0;
+                          });
+
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      TutorSignUp(isTutor: true)));
+                        },
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          right: 20,
+                          left: 20,
+                        ),
+                      ),
+                      MaterialButton(
+                        minWidth: 110.0,
+                        height: 250.0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(60.0),
+                          side: BorderSide(
+                              color: selectedUser == null
+                                  ? Colors.grey
+                                  : selectedUser == 1
+                                      ? Colors.blue
+                                      : Colors.grey,
+                              width: 2),
+                        ),
+                        child: Column(
+                          children: <Widget>[
+                            CircleAvatar(
+                              radius: 49,
+                              child: Image.asset('assets/tutor.png'),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(top: 20),
+                            ),
+                            Text(
+                              tr("Tutor_Manager"),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 15),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(top: 30),
+                            ),
+                            Icon(
+                              Icons.check_circle,
+                              color: selectedUser == null
+                                  ? Colors.grey
+                                  : selectedUser == 1
+                                      ? Colors.blue
+                                      : Colors.grey,
+                              size: 40.0,
+                            )
+                          ],
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      TutorSignUp(isTutor: false)));
+                          print(selectedUser);
+                          setState(() {
+                            selectedUser = 1;
+                          });
+                        },
+                      ),
+                    ],
+                  )),
+                  Padding(
+                      padding: EdgeInsets.only(
+                    bottom: 40,
+                  )),
                 ],
               ),
             )
