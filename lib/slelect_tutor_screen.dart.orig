@@ -65,9 +65,6 @@ class SelectTutorScreenState extends State<SelectTutorScreen>
   ImageModal? imageModal;
   List<TutorsItem> tutorList = <TutorsItem>[];
   List<Widget> listWidget = <Widget>[];
-  // Multi-selection: max 3 tutors can be assigned to the same request.
-  static const int kMaxSelectableTutors = 3;
-  final List<String> selectedTutorIds = <String>[];
 
   @override
   Widget build(BuildContext context) {
@@ -153,18 +150,21 @@ class SelectTutorScreenState extends State<SelectTutorScreen>
                                                 fontWeight: FontWeight.w600),
                                           ),
                                           onPressed: () {
-                                            if (selectedTutorIds.isEmpty) {
-                                              return;
-                                            }
+                                            late final String tId;
+                                            tutorList.forEach((element) {
+                                              if (element.isShowDelete ==
+                                                  true) {
+                                                tId = element.sId ?? "";
+                                              }
+                                            });
                                             AssignTutorRequest request =
                                                 AssignTutorRequest(
                                                     notificationId: nId,
-                                                    tutorIds: List<String>.from(
-                                                        selectedTutorIds));
+                                                    tutorId: tId);
                                             assignTutor(request);
                                           },
                                           child: Text(
-                                            "${tr("Assign_tutor")} (${selectedTutorIds.length}/$kMaxSelectableTutors)",
+                                            tr("Assign_tutor"),
                                           ),
                                         ),
                                       ),
@@ -251,25 +251,15 @@ class SelectTutorScreenState extends State<SelectTutorScreen>
     print("value.id is ${value.sId}");
     return GestureDetector(
       onTap: () {
-        final String? tappedId = value.sId;
-        if (tappedId == null || tappedId.isEmpty) return;
-        final bool alreadySelected = selectedTutorIds.contains(tappedId);
-        if (alreadySelected) {
-          selectedTutorIds.remove(tappedId);
-        } else {
-          if (selectedTutorIds.length >= kMaxSelectableTutors) {
-            CommonUtils.showToast(
-                msg: "Puoi selezionare al massimo $kMaxSelectableTutors tutor");
-            return;
+        isButtonShowController.sink.add(true);
+        tutorList.forEach((element) {
+          if (element.sId == value.sId) {
+            element.isShowDelete = true;
+          } else {
+            element.isShowDelete = false;
           }
-          selectedTutorIds.add(tappedId);
-        }
-        // Sync the per-item flag used for the visual highlight.
-        for (final element in tutorList) {
-          element.isShowDelete = selectedTutorIds.contains(element.sId);
-        }
-        isButtonShowController.sink.add(selectedTutorIds.isNotEmpty);
-        _controller.sink.add(tutorList);
+          _controller.sink.add(tutorList);
+        });
       },
       child: Container(
         decoration: value.isShowDelete == true
