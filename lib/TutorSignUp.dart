@@ -502,7 +502,7 @@ class _MyHomePageState extends State<TutorSignUp> with RegisterContract {
                                             )),
                                       ])),
                                 )
-                              ])),
+                              ,
                       IconButton(
                           icon: Icon(
                             Icons.close,
